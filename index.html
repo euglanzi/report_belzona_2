@@ -412,7 +412,7 @@
       <span class="brand-name">REPORT SOPRALLUOGO</span>
     </div>
     <div class="header-right">
-      <span class="form-counter" id="formCounter">N° 1</span>
+        <span class="form-counter" id="formCounter">Report N° ...</span>
       <button class="settings-btn" onclick="document.getElementById('configModal').classList.add('open')" title="Impostazioni">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="3"/>
@@ -602,8 +602,7 @@
     }
 
     let reportId = makeReportId();
-    document.getElementById('formCounter').textContent = reportId;
-
+    document.getElementById('formCounter').textContent = 'Report N° ' + reportId;
     let ynState = {};
     const d = document.getElementById('data');
     if (d) d.valueAsDate = new Date();
@@ -726,7 +725,7 @@
       document.querySelectorAll('.yn-btn').forEach(b => b.classList.remove('active-si','active-no'));
       ynState = {};
       reportId = makeReportId();
-      document.getElementById('formCounter').textContent = reportId;
+      document.getElementById('formCounter').textContent = 'Report N° ' + reportId;
       window.scrollTo({ top: 0, behavior: 'smooth' });
       showToast('✦ Nuovo form pronto');
     }
