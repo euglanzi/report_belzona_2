@@ -15,8 +15,8 @@
       --bg: #ffffff;
       --surface: #ffffff;
       --surface2: #f5f6f8;
-      --accent: #1d3557;
-      --accent2: #274c77;
+      --accent: #e63946;
+      --accent2: #457b9d;
       --text: #1a1a2e;
       --text-dim: #5b6475;
       --border: #d9dee7;
@@ -205,7 +205,7 @@
     @media (max-width: 520px) {
       .check-grid { grid-template-columns: 1fr; }
     }
-    .check-item { cursor: pointer;
+    .check-item {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -691,7 +691,7 @@
     async function sendForm() {
       const scriptUrl = localStorage.getItem('bs_script_url');
       if (!scriptUrl) {
-        showToast("⚙️ Configura prima l'URL in impostazioni", "error");
+        showToast('⚙️ Configura prima l'URL in impostazioni', 'error');
         setTimeout(() => document.getElementById('configModal').classList.add('open'), 600);
         return;
       }
@@ -702,17 +702,40 @@
       btn.textContent = 'INVIO IN CORSO...';
 
       try {
-        await fetch(scriptUrl, {
+        const res = await fetch(scriptUrl, {
           method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
+          redirect: 'follow',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(data)
         });
 
-        formCount++;
-        localStorage.setItem('bs_form_count', formCount);
-        showToast('✓ Report N°' + (formCount - 1) + ' inviato!');
+        // Provo a leggere la risposta JSON del Web App (se CORS lo consente)
+        let serverNumero = null;
+        try {
+          if (res && res.ok === false) {
+            throw new Error('HTTP ' + res.status);
+          }
+          const j = await res.json();
+          if (j && (j.numero_report || j.numero)) serverNumero = j.numero_report || j.numero;
+        } catch (errRead) {
+          // Se la response non è leggibile (CORS/opaque), continuiamo comunque.
+        }
+
+        if (serverNumero !== null) {
+          // Allineo il contatore locale al progressivo realmente scritto su Excel
+          formCount = Number(serverNumero) + 1;
+          localStorage.setItem('bs_form_count', formCount);
+          document.getElementById('formCounter').textContent = 'N° ' + formCount;
+          showToast('✓ Report N°' + serverNumero + ' inviato!');
+        } else {
+          // Fallback: incremento locale (può divergere se più utenti inviano in parallelo)
+          formCount++;
+          localStorage.setItem('bs_form_count', formCount);
+          showToast('✓ Report N°' + (formCount - 1) + ' inviato!');
+        }
+
         setTimeout(() => resetForm(), 900);
+
       } catch (e) {
         console.error(e);
         showToast('Errore di connessione', 'error');
