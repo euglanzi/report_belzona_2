@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Report Sopralluogo</title>
+  <link rel="manifest" href="manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface2: #f5f6f8;
+      --accent: #e63946;
+      --accent2: #457b9d;
+      --text: #1a1a2e;
+      --text-dim: #5b6475;
+      --border: #d9dee7;
+      --ok: #2a9d8f;
+      --radius: 10px;
+      --font-head: 'Barlow Condensed', sans-serif;
+      --font-body: 'Barlow', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      min-height: 100vh;
+      padding-bottom: 110px;
+    }
+
+    /* HEADER */
+    .app-header {
+      background: var(--surface);
+      border-bottom: 3px solid var(--accent);
+      padding: 14px 16px 10px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand { display:flex; flex-direction:column; }
+    .brand-top {
+      font-family: var(--font-head);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .brand-name {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      line-height: 1;
+      color: var(--text);
+    }
+    .header-right {
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex: 0 0 auto;
+    }
+    .form-counter {
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .settings-btn {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      cursor: pointer;
+      padding: 4px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .belzona-logo {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* CONTENT */
+    .content {
+      padding: 18px 14px;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* SECTION CARDS */
+    .section-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(16,24,40,0.06);
+    }
+    .section-header {
+      background: var(--surface2);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-num {
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 700;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .section-body { padding: 14px; }
+
+    /* FIELDS */
+    .field-row { margin-bottom: 14px; }
+    .field-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 5px;
+      display: block;
+    }
+    .field-input {
+      width: 100%;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      padding: 10px 12px;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .field-input:focus { outline: none; border-color: var(--accent2); }
+    .field-input::placeholder { color: #9aa3b2; }
+    textarea.field-input { resize: vertical; min-height: 90px; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 520px) {
+      .two-col { grid-template-columns: 1fr; }
+      .belzona-logo { height: 24px; }
+    }
+
+    /* SUBSECTIONS */
+    .subsection-label {
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin: 14px 0 10px;
+      display: block;
+    }
+
+    /* CHECK GRID */
+    .check-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 520px) {
+      .check-grid { grid-template-columns: 1fr; }
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .check-item input[type="checkbox"] { display:none; }
+    .check-box {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      border: 2px solid var(--border);
+      background: var(--surface2);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      transition: all 0.2s;
+    }
+    .check-box svg { display:none; }
+    .check-item.checked {
+      border-color: var(--ok);
+      background: rgba(42,157,143,0.08);
+    }
+    .check-item.checked .check-box {
+      background: var(--ok);
+      border-color: var(--ok);
+    }
+    .check-item.checked .check-box svg { display:block; }
+    .check-label { font-size: 14px; font-weight: 500; color: var(--text); }
+
+    /* SI/NO TOGGLE */
+    .yn-grid {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 520px) {
+      .yn-grid { grid-template-columns: 1fr; }
+    }
+    .yn-item {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      overflow:hidden;
+    }
+    .yn-label-text {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+      padding: 8px 12px 4px;
+      display:block;
+    }
+    .yn-buttons {
+      display:flex;
+      padding: 0 8px 8px;
+      gap: 6px;
+    }
+    .yn-btn {
+      flex:1;
+      padding: 7px 0;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface2);
+      color: var(--text-dim);
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .yn-btn.active-si { background: var(--ok); border-color: var(--ok); color:#fff; }
+    .yn-btn.active-no { background: var(--accent); border-color: var(--accent); color:#fff; }
+
+    /* BOTTOM BAR */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 2px solid var(--border);
+      padding: 12px 16px;
+      display: flex;
+      gap: 12px;
+      z-index: 200;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .btn-reset {
+      flex: 0 0 auto;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      color: var(--text-dim);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 700;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .btn-send {
+      flex: 1;
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      border-radius: 8px;
+      padding: 14px;
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+    }
+    .btn-send:disabled { opacity:0.55; cursor:not-allowed; }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: var(--ok);
+      color: #fff;
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      opacity: 0;
+      transition: all 0.3s;
+      pointer-events: none;
+      z-index: 999;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .toast.show { opacity:1; transform: translateX(-50%) translateY(0); }
+    .toast.error { background: var(--accent); }
+
+    /* MODAL */
+    .modal-overlay {
+      display:none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display:flex; }
+    .modal-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 440px;
+      padding: 22px;
+    }
+    .modal-title {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .modal-sub {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .modal-sub a { color: var(--accent2); }
+    .modal-btns { display:flex; gap:10px; margin-top: 16px; }
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor:pointer;
+      border:none;
+    }
+    .modal-btn.primary { background: var(--accent); color:#fff; }
+    .modal-btn.secondary { background: var(--surface2); color: var(--text-dim); border: 1px solid var(--border); }
+
+    .divider { height:1px; background: var(--border); margin: 12px 0; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="app-header">
+    <div class="brand">
+      <span class="brand-top">BS Distributore Autorizzato</span>
+      <span class="brand-name">REPORT SOPRALLUOGO</span>
+    </div>
+
+    <div class="header-right">
+      <span class="form-counter" id="formCounter">N° 1</span>
+      <button class="settings-btn" onclick="document.getElementById('configModal').classList.add('open')" title="Impostazioni">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+      <img class="belzona-logo" src="https://www.belzona.com/assets/images/belzonalogo_en.png" alt="Belzona" />
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- SEZ 1 -->
+    <div class="section-card">
+      <div class="section-header"><div class="section-num">1</div><span class="section-title">Informazioni Generali</span></div>
+      <div class="section-body">
+        <div class="field-row"><label class="field-label">Cliente</label><input class="field-input" id="cliente" placeholder="Nome cliente..."/></div>
+        <div class="two-col">
+          <div class="field-row"><label class="field-label">Luogo</label><input class="field-input" id="luogo" placeholder="Luogo..."/></div>
+          <div class="field-row"><label class="field-label">Data</label><input class="field-input" type="date" id="data"/></div>
+        </div>
+        <div class="two-col">
+          <div class="field-row"><label class="field-label">Referente BS</label><input class="field-input" id="referenteBS" placeholder="Nome..."/></div>
+          <div class="field-row"><label class="field-label">Referente Cliente</label><input class="field-input" id="referenteCliente" placeholder="Nome..."/></div>
+        </div>
+        <div class="two-col">
+          <div class="field-row"><label class="field-label">Agente BS Srl</label><input class="field-input" id="agente" placeholder="Agente..."/></div>
+          <div class="field-row"><label class="field-label">Oggetto / Item</label><input class="field-input" id="oggetto" placeholder="Oggetto..."/></div>
+        </div>
+        <div class="field-row"><label class="field-label">Note</label><textarea class="field-input" id="noteSez1" placeholder="Note generali..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- SEZ 2 -->
+    <div class="section-card">
+      <div class="section-header"><div class="section-num">2</div><span class="section-title">Dati Operativi Componente</span></div>
+      <div class="section-body">
+        <span class="subsection-label">Condizioni Operative</span>
+        <div class="two-col">
+          <div class="field-row"><label class="field-label">Tipologia Servizio</label><input class="field-input" id="tipologiaServizio"/></div>
+          <div class="field-row"><label class="field-label">Temperatura</label><input class="field-input" id="temperatura" placeholder="es. 80°C"/></div>
+        </div>
+        <div class="two-col">
+          <div class="field-row"><label class="field-label">Aggressivi Chimici</label><input class="field-input" id="aggressiviChimici"/></div>
+          <div class="field-row"><label class="field-label">Cicli di Lavaggio</label><input class="field-input" id="cicliLavaggio"/></div>
+        </div>
+        <div class="two-col">
+          <div class="field-row"><label class="field-label">Ciclature Termiche</label><input class="field-input" id="ciclatureTermiche"/></div>
+          <div class="field-row"><label class="field-label">Tempi Rientro Servizio</label><input class="field-input" id="tempiRientro"/></div>
+        </div>
+
+        <div class="divider"></div>
+        <span class="subsection-label">Problema Riscontrato</span>
+        <div class="check-grid">
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkCorrosione"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Corrosione</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkVaiolature"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Vaiolature</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkErosione"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Erosione</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkCricche"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Cricche</span></label>
+        </div>
+        <div class="field-row"><label class="field-label">Note (particolarità del processo, ecc.)</label><textarea class="field-input" id="noteSez2" placeholder="Note operative..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- SEZ 3 -->
+    <div class="section-card">
+      <div class="section-header"><div class="section-num">3</div><span class="section-title">Sicurezza</span></div>
+      <div class="section-body">
+        <span class="subsection-label">Condizioni Ambientali ed Operative nell'Area di Lavoro</span>
+        <div class="yn-grid">
+          <div class="yn-item"><span class="yn-label-text">Aggressivi Chimici</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynAggressivi">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynAggressivi">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Area AtEx</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynAtex">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynAtex">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Polveri</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynPolveri">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynPolveri">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Lavoro in Quota</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynQuota">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynQuota">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Particolari DPI</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynDPI">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynDPI">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Spazio Confinato</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynConfinato">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynConfinato">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Limitazione 220V</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="yn220V">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="yn220V">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Necessità Formazione</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynFormazione">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynFormazione">NO</button></div></div>
+        </div>
+        <div class="field-row"><label class="field-label">Note (aspetti integrativi)</label><textarea class="field-input" id="noteSez3" placeholder="Note sicurezza..."></textarea></div>
+      </div>
+    </div>
+
+    <!-- SEZ 4 -->
+    <div class="section-card">
+      <div class="section-header"><div class="section-num">4</div><span class="section-title">Luogo di lavoro</span></div>
+      <div class="section-body">
+
+        <span class="subsection-label">Ubicazione</span>
+        <div class="two-col">
+          <div class="field-row"><label class="field-label">Piano di lavoro</label><input class="field-input" id="sez4PianoLavoro" /></div>
+          <div class="field-row"><label class="field-label">Movimentazione</label><input class="field-input" id="sez4Movimentazione" /></div>
+        </div>
+        <div class="field-row"><label class="field-label">Distanza da parcheggio</label><input class="field-input" id="sez4DistanzaParcheggio" /></div>
+
+        <span class="subsection-label">Area di lavoro</span>
+        <div class="check-grid">
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Aperto"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">All'aperto</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Chiuso"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Al chiuso</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Riscaldata"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Riscaldata</span></label>
+        </div>
+
+        <span class="subsection-label">Accessibilità</span>
+        <div class="check-grid">
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Scale"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Scale</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Ascensore"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Ascensore</span></label>
+        </div>
+        <div class="field-row"><label class="field-label">Passi Uomo (diam)</label><input class="field-input" id="sez4PassiUomoDiam" /></div>
+
+        <div class="field-row"><label class="field-label">Illuminazione</label>
+          <select class="field-input" id="sez4Illuminazione">
+            <option value=""></option>
+            <option value="Insufficiente">Insufficiente</option>
+            <option value="Sufficiente">Sufficiente</option>
+            <option value="Buona">Buona</option>
+          </select>
+        </div>
+
+        <span class="subsection-label">Spazi Operativi</span>
+        <div class="check-grid">
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Corpo"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Corpo</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Braccio"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Braccio</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Mano"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Mano</span></label>
+        </div>
+
+        <div class="field-row"><label class="field-label">Ventilazione / Ricambio aria</label>
+          <select class="field-input" id="sez4Ventilazione">
+            <option value=""></option>
+            <option value="Insufficiente">Insufficiente</option>
+            <option value="Sufficiente">Sufficiente</option>
+            <option value="Buona">Buona</option>
+          </select>
+        </div>
+
+        <div class="field-row"><label class="field-label">Note (descrizione accessi, spazi confinati, ecc.)</label><textarea class="field-input" id="noteSez4"></textarea></div>
+        <div class="field-row"><label class="field-label">Note e raccolta dati</label><textarea class="field-input" id="noteRaccoltaDati" style="min-height:140px"></textarea></div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="bottom-bar">
+    <button class="btn-reset" onclick="resetForm()" title="Nuovo form">＋</button>
+    <button class="btn-send" id="btnSend" onclick="sendForm()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      INVIA REPORT
+    </button>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- MODAL CONFIG -->
+  <div class="modal-overlay" id="configModal">
+    <div class="modal-box">
+      <div class="modal-title">⚙️ Configurazione Invio</div>
+      <div class="modal-sub">
+        Inserisci l'URL del tuo <strong>Google Apps Script</strong> (Web App) per abilitare l'invio a Google Sheets.<br><br>
+        1. Apri <a href="https://script.google.com" target="_blank">script.google.com</a><br>
+        2. Deploy → <em>New deployment</em> → <em>Web app</em><br>
+        3. Copia l'URL che termina con <strong>/exec</strong> e incollalo qui
+      </div>
+      <div class="field-row">
+        <label class="field-label">URL Google Apps Script</label>
+        <input class="field-input" type="url" id="scriptUrl" placeholder="https://script.google.com/macros/s/.../exec" />
+      </div>
+      <div class="modal-btns">
+        <button class="modal-btn secondary" onclick="document.getElementById('configModal').classList.remove('open')">Annulla</button>
+        <button class="modal-btn primary" onclick="saveConfig()">Salva</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let formCount = parseInt(localStorage.getItem('bs_form_count') || '1');
+    let ynState = {};
+    document.getElementById('formCounter').textContent = 'N° ' + formCount;
+
+    const d = document.getElementById('data');
+    if (d) d.valueAsDate = new Date();
+
+    const savedUrl = localStorage.getItem('bs_script_url');
+    if (savedUrl) document.getElementById('scriptUrl').value = savedUrl;
+
+    function toggleCheck(el) {
+      el.classList.toggle('checked');
+      const cb = el.querySelector('input[type="checkbox"]');
+      if (cb) cb.checked = el.classList.contains('checked');
+    }
+
+    function setYN(btn, val) {
+      const field = btn.getAttribute('data-field');
+      const btns = btn.parentElement.querySelectorAll('.yn-btn');
+      btns.forEach(b => b.classList.remove('active-si','active-no'));
+      btn.classList.add(val === 'si' ? 'active-si' : 'active-no');
+      ynState[field] = val;
+    }
+
+    function v(id) {
+      const el = document.getElementById(id);
+      return (el && el.value ? el.value.trim() : '');
+    }
+
+    function collectData() {
+      return {
+        numero_report: formCount,
+        timestamp: new Date().toISOString(),
+
+        cliente: v('cliente'),
+        luogo: v('luogo'),
+        data: v('data'),
+        referente_bs: v('referenteBS'),
+        referente_cliente: v('referenteCliente'),
+        agente_bs: v('agente'),
+        oggetto: v('oggetto'),
+        note_sez1: v('noteSez1'),
+
+        tipologia_servizio: v('tipologiaServizio'),
+        temperatura: v('temperatura'),
+        aggressivi_chimici_op: v('aggressiviChimici'),
+        cicli_lavaggio: v('cicliLavaggio'),
+        ciclature_termiche: v('ciclatureTermiche'),
+        tempi_rientro: v('tempiRientro'),
+        problema_corrosione: document.getElementById('chkCorrosione').checked ? 'SÌ' : 'NO',
+        problema_vaiolature: document.getElementById('chkVaiolature').checked ? 'SÌ' : 'NO',
+        problema_erosione: document.getElementById('chkErosione').checked ? 'SÌ' : 'NO',
+        problema_cricche: document.getElementById('chkCricche').checked ? 'SÌ' : 'NO',
+        note_sez2: v('noteSez2'),
+
+        sic_aggressivi: ynState['ynAggressivi'] || '',
+        sic_atex: ynState['ynAtex'] || '',
+        sic_polveri: ynState['ynPolveri'] || '',
+        sic_quota: ynState['ynQuota'] || '',
+        sic_dpi: ynState['ynDPI'] || '',
+        sic_confinato: ynState['ynConfinato'] || '',
+        sic_220v: ynState['yn220V'] || '',
+        sic_formazione: ynState['ynFormazione'] || '',
+        note_sez3: v('noteSez3'),
+
+        sez4_piano_lavoro: v('sez4PianoLavoro'),
+        sez4_movimentazione: v('sez4Movimentazione'),
+        sez4_distanza_parcheggio: v('sez4DistanzaParcheggio'),
+        sez4_area_aperto: document.getElementById('chkSez4Aperto').checked ? 'SÌ' : 'NO',
+        sez4_area_chiuso: document.getElementById('chkSez4Chiuso').checked ? 'SÌ' : 'NO',
+        sez4_area_riscaldata: document.getElementById('chkSez4Riscaldata').checked ? 'SÌ' : 'NO',
+        sez4_scale: document.getElementById('chkSez4Scale').checked ? 'SÌ' : 'NO',
+        sez4_ascensore: document.getElementById('chkSez4Ascensore').checked ? 'SÌ' : 'NO',
+        sez4_passi_uomo_diam: v('sez4PassiUomoDiam'),
+        sez4_illuminazione: v('sez4Illuminazione'),
+        sez4_corpo: document.getElementById('chkSez4Corpo').checked ? 'SÌ' : 'NO',
+        sez4_braccio: document.getElementById('chkSez4Braccio').checked ? 'SÌ' : 'NO',
+        sez4_mano: document.getElementById('chkSez4Mano').checked ? 'SÌ' : 'NO',
+        sez4_ventilazione: v('sez4Ventilazione'),
+        note_sez4: v('noteSez4'),
+        note_raccolta_dati: v('noteRaccoltaDati')
+      };
+    }
+
+    async function sendForm() {
+      const scriptUrl = localStorage.getItem('bs_script_url');
+      if (!scriptUrl) {
+        showToast("⚙️ Configura prima l'URL in impostazioni", 'error');
+        setTimeout(() => document.getElementById('configModal').classList.add('open'), 600);
+        return;
+      }
+
+      const data = collectData();
+      const btn = document.getElementById('btnSend');
+      btn.disabled = true;
+      btn.textContent = 'INVIO IN CORSO...';
+
+      try {
+        await fetch(scriptUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        formCount++;
+        localStorage.setItem('bs_form_count', formCount);
+        showToast('✓ Report N°' + (formCount - 1) + ' inviato!');
+        setTimeout(() => resetForm(), 900);
+      } catch (e) {
+        console.error(e);
+        showToast('Errore di connessione', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> INVIA REPORT';
+      }
+    }
+
+    function resetForm() {
+      document.querySelectorAll('.field-input').forEach(el => {
+        if (el.tagName === 'SELECT') { el.value = ''; return; }
+        if (el.type === 'date') { el.valueAsDate = new Date(); }
+        else { el.value = ''; }
+      });
+
+      document.querySelectorAll('.check-item').forEach(el => {
+        el.classList.remove('checked');
+        const cb = el.querySelector('input[type="checkbox"]');
+        if (cb) cb.checked = false;
+      });
+
+      document.querySelectorAll('.yn-btn').forEach(b => b.classList.remove('active-si','active-no'));
+      ynState = {};
+
+      document.getElementById('formCounter').textContent = 'N° ' + formCount;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast('✦ Nuovo form pronto');
+    }
+
+    function saveConfig() {
+      const url = document.getElementById('scriptUrl').value.trim();
+      if (url) {
+        localStorage.setItem('bs_script_url', url);
+        document.getElementById('configModal').classList.remove('open');
+        showToast('✓ URL salvato');
+      }
+    }
+
+    function showToast(msg, type = '') {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast' + (type === 'error' ? ' error' : '') + ' show';
+      setTimeout(() => t.classList.remove('show'), 2600);
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(console.error);
+      });
+    }
+  </script>
+
+</body>
+</html>
