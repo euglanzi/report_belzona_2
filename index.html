@@ -15,8 +15,8 @@
       --bg: #ffffff;
       --surface: #ffffff;
       --surface2: #f5f6f8;
-      --accent: #e63946;
-      --accent2: #457b9d;
+      --accent: #1d3557;
+      --accent2: #274c77;
       --text: #1a1a2e;
       --text-dim: #5b6475;
       --border: #d9dee7;
@@ -205,7 +205,7 @@
     @media (max-width: 520px) {
       .check-grid { grid-template-columns: 1fr; }
     }
-    .check-item {
+    .check-item { cursor: pointer;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -691,7 +691,7 @@
     async function sendForm() {
       const scriptUrl = localStorage.getItem('bs_script_url');
       if (!scriptUrl) {
-        showToast("⚙️ Configura prima l'URL in impostazioni", 'error');
+        showToast("⚙️ Configura prima l'URL in impostazioni", "error");
         setTimeout(() => document.getElementById('configModal').classList.add('open'), 600);
         return;
       }
