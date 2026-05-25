@@ -9,23 +9,25 @@
   <title>Report Sopralluogo</title>
   <link rel="manifest" href="manifest.json" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg: #ffffff;
       --surface: #ffffff;
       --surface2: #f5f6f8;
-      --accent: #1e3a5f;
-      --accent2: #2c5d8a;
+      --accent: #e63946;
+      --accent2: #457b9d;
       --text: #1a1a2e;
       --text-dim: #5b6475;
       --border: #d9dee7;
       --ok: #2a9d8f;
-      --danger: #c1121f;
       --radius: 10px;
       --font-head: 'Barlow Condensed', sans-serif;
       --font-body: 'Barlow', sans-serif;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       background: var(--bg);
       color: var(--text);
@@ -34,6 +36,7 @@
       min-height: 100vh;
       padding-bottom: 110px;
     }
+
     /* HEADER */
     .app-header {
       background: var(--surface);
@@ -94,12 +97,14 @@
       width: auto;
       object-fit: contain;
     }
+
     /* CONTENT */
     .content {
       padding: 18px 14px;
       max-width: 650px;
       margin: 0 auto;
     }
+
     /* SECTION CARDS */
     .section-card {
       background: var(--surface);
@@ -140,6 +145,7 @@
       color: var(--text);
     }
     .section-body { padding: 14px; }
+
     /* FIELDS */
     .field-row { margin-bottom: 14px; }
     .field-label {
@@ -166,6 +172,7 @@
     .field-input:focus { outline: none; border-color: var(--accent2); }
     .field-input::placeholder { color: #9aa3b2; }
     textarea.field-input { resize: vertical; min-height: 90px; }
+
     .two-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -175,6 +182,7 @@
       .two-col { grid-template-columns: 1fr; }
       .belzona-logo { height: 24px; }
     }
+
     /* SUBSECTIONS */
     .subsection-label {
       font-family: var(--font-head);
@@ -186,6 +194,7 @@
       margin: 14px 0 10px;
       display: block;
     }
+
     /* CHECK GRID */
     .check-grid {
       display: grid;
@@ -233,6 +242,7 @@
     }
     .check-item.checked .check-box svg { display:block; }
     .check-label { font-size: 14px; font-weight: 500; color: var(--text); }
+
     /* SI/NO TOGGLE */
     .yn-grid {
       display:grid;
@@ -277,7 +287,8 @@
       -webkit-tap-highlight-color: transparent;
     }
     .yn-btn.active-si { background: var(--ok); border-color: var(--ok); color:#fff; }
-    .yn-btn.active-no { background: var(--danger); border-color: var(--danger); color:#fff; }
+    .yn-btn.active-no { background: var(--accent); border-color: var(--accent); color:#fff; }
+
     /* BOTTOM BAR */
     .bottom-bar {
       position: fixed;
@@ -329,6 +340,7 @@
       gap: 8px;
     }
     .btn-send:disabled { opacity:0.55; cursor:not-allowed; }
+
     /* TOAST */
     .toast {
       position: fixed;
@@ -351,7 +363,8 @@
       white-space: nowrap;
     }
     .toast.show { opacity:1; transform: translateX(-50%) translateY(0); }
-    .toast.error { background: var(--danger); }
+    .toast.error { background: var(--accent); }
+
     /* MODAL */
     .modal-overlay {
       display:none;
@@ -401,18 +414,21 @@
     }
     .modal-btn.primary { background: var(--accent); color:#fff; }
     .modal-btn.secondary { background: var(--surface2); color: var(--text-dim); border: 1px solid var(--border); }
+
     .divider { height:1px; background: var(--border); margin: 12px 0; }
   </style>
 </head>
 <body>
+
   <!-- HEADER -->
   <div class="app-header">
     <div class="brand">
       <span class="brand-top">BS Distributore Autorizzato</span>
       <span class="brand-name">REPORT SOPRALLUOGO</span>
     </div>
+
     <div class="header-right">
-      <span class="form-counter" id="formCounter">N° 1</span>
+      <span class="form-counter" id="formCounter">Report N° ...</span>
       <button class="settings-btn" onclick="document.getElementById('configModal').classList.add('open')" title="Impostazioni">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="3"/>
@@ -464,13 +480,14 @@
           <div class="field-row"><label class="field-label">Ciclature Termiche</label><input class="field-input" id="ciclatureTermiche"/></div>
           <div class="field-row"><label class="field-label">Tempi Rientro Servizio</label><input class="field-input" id="tempiRientro"/></div>
         </div>
+
         <div class="divider"></div>
         <span class="subsection-label">Problema Riscontrato</span>
         <div class="check-grid">
-          <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkCorrosione"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Corrosione</span></label>
-          <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkVaiolature"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Vaiolature</span></label>
-          <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkErosione"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Erosione</span></label>
-          <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkCricche"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Cricche</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkCorrosione"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Corrosione</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkVaiolature"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Vaiolature</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkErosione"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Erosione</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkCricche"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Cricche</span></label>
         </div>
         <div class="field-row"><label class="field-label">Note (particolarità del processo, ecc.)</label><textarea class="field-input" id="noteSez2" placeholder="Note operative..."></textarea></div>
       </div>
@@ -499,6 +516,7 @@
     <div class="section-card">
       <div class="section-header"><div class="section-num">4</div><span class="section-title">Luogo di lavoro</span></div>
       <div class="section-body">
+
         <span class="subsection-label">Ubicazione</span>
         <div class="two-col">
           <div class="field-row"><label class="field-label">Piano di lavoro</label><input class="field-input" id="sez4PianoLavoro" /></div>
@@ -508,21 +526,19 @@
 
         <span class="subsection-label">Area di lavoro</span>
         <div class="check-grid">
-          <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkSez4Aperto"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">All'aperto</span></label>
-          <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkSez4Chiuso"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Al chiuso</span></label>
-          <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkSez4Riscaldata"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Riscaldata</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Aperto"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">All'aperto</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Chiuso"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Al chiuso</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Riscaldata"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Riscaldata</span></label>
         </div>
 
         <span class="subsection-label">Accessibilità</span>
         <div class="check-grid">
-          <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkSez4Scale"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Scale</span></label>
-          <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkSez4Ascensore"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Ascensore</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Scale"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Scale</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Ascensore"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Ascensore</span></label>
         </div>
-
         <div class="field-row"><label class="field-label">Passi Uomo (diam)</label><input class="field-input" id="sez4PassiUomoDiam" /></div>
 
-        <div class="field-row">
-          <label class="field-label">Illuminazione</label>
+        <div class="field-row"><label class="field-label">Illuminazione</label>
           <select class="field-input" id="sez4Illuminazione">
             <option value=""></option>
             <option value="Insufficiente">Insufficiente</option>
@@ -533,13 +549,12 @@
 
         <span class="subsection-label">Spazi Operativi</span>
         <div class="check-grid">
-          <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkSez4Corpo"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Corpo</span></label>
-          <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkSez4Braccio"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Braccio</span></label>
-          <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkSez4Mano"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Mano</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Corpo"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Corpo</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Braccio"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Braccio</span></label>
+          <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" id="chkSez4Mano"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Mano</span></label>
         </div>
 
-        <div class="field-row">
-          <label class="field-label">Ventilazione / Ricambio aria</label>
+        <div class="field-row"><label class="field-label">Ventilazione / Ricambio aria</label>
           <select class="field-input" id="sez4Ventilazione">
             <option value=""></option>
             <option value="Insufficiente">Insufficiente</option>
@@ -550,6 +565,7 @@
 
         <div class="field-row"><label class="field-label">Note (descrizione accessi, spazi confinati, ecc.)</label><textarea class="field-input" id="noteSez4"></textarea></div>
         <div class="field-row"><label class="field-label">Note e raccolta dati</label><textarea class="field-input" id="noteRaccoltaDati" style="min-height:140px"></textarea></div>
+
       </div>
     </div>
 
@@ -558,7 +574,6 @@
   <!-- BOTTOM BAR -->
   <div class="bottom-bar">
     <button class="btn-reset" onclick="resetForm()" title="Nuovo form">＋</button>
-
     <button class="btn-send" id="btnSend" onclick="sendForm()">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       INVIA REPORT
@@ -577,12 +592,10 @@
         2. Deploy → <em>New deployment</em> → <em>Web app</em><br>
         3. Copia l'URL che termina con <strong>/exec</strong> e incollalo qui
       </div>
-
       <div class="field-row">
         <label class="field-label">URL Google Apps Script</label>
         <input class="field-input" type="url" id="scriptUrl" placeholder="https://script.google.com/macros/s/.../exec" />
       </div>
-
       <div class="modal-btns">
         <button class="modal-btn secondary" onclick="document.getElementById('configModal').classList.remove('open')">Annulla</button>
         <button class="modal-btn primary" onclick="saveConfig()">Salva</button>
@@ -591,32 +604,20 @@
   </div>
 
   <script>
-    function pad2(n){return String(n).padStart(2,'0');}
-    function makeReportId(d=new Date()){
-      const yyyy=d.getFullYear();
-      const mm=pad2(d.getMonth()+1);
-      const dd=pad2(d.getDate());
-      const hh=pad2(d.getHours());
-      const mi=pad2(d.getMinutes());
-      return `${yyyy}-${mm}-${dd}-${hh}.${mi}`;
-    }
-
-    let reportId = makeReportId();
-    document.getElementById('formCounter').textContent = reportId;
-
+    let formCount = parseInt(localStorage.getItem('bs_form_count') || '1');
     let ynState = {};
+    document.getElementById('formCounter').textContent = 'N° ' + formCount;
+
     const d = document.getElementById('data');
     if (d) d.valueAsDate = new Date();
+
     const savedUrl = localStorage.getItem('bs_script_url');
     if (savedUrl) document.getElementById('scriptUrl').value = savedUrl;
 
-    // ✅ checkbox toggle (già fixato)
-    function toggleCheck(el, ev) {
-      if (ev) ev.preventDefault();
+    function toggleCheck(el) {
+      el.classList.toggle('checked');
       const cb = el.querySelector('input[type="checkbox"]');
-      const newVal = cb ? !cb.checked : !el.classList.contains('checked');
-      if (cb) cb.checked = newVal;
-      el.classList.toggle('checked', newVal);
+      if (cb) cb.checked = el.classList.contains('checked');
     }
 
     function setYN(btn, val) {
@@ -636,6 +637,7 @@
       return {
         numero_report: reportId,
         timestamp: new Date().toISOString(),
+
         cliente: v('cliente'),
         luogo: v('luogo'),
         data: v('data'),
@@ -644,6 +646,7 @@
         agente_bs: v('agente'),
         oggetto: v('oggetto'),
         note_sez1: v('noteSez1'),
+
         tipologia_servizio: v('tipologiaServizio'),
         temperatura: v('temperatura'),
         aggressivi_chimici_op: v('aggressiviChimici'),
@@ -655,6 +658,7 @@
         problema_erosione: document.getElementById('chkErosione').checked ? 'SÌ' : 'NO',
         problema_cricche: document.getElementById('chkCricche').checked ? 'SÌ' : 'NO',
         note_sez2: v('noteSez2'),
+
         sic_aggressivi: ynState['ynAggressivi'] || '',
         sic_atex: ynState['ynAtex'] || '',
         sic_polveri: ynState['ynPolveri'] || '',
@@ -664,6 +668,7 @@
         sic_220v: ynState['yn220V'] || '',
         sic_formazione: ynState['ynFormazione'] || '',
         note_sez3: v('noteSez3'),
+
         sez4_piano_lavoro: v('sez4PianoLavoro'),
         sez4_movimentazione: v('sez4Movimentazione'),
         sez4_distanza_parcheggio: v('sez4DistanzaParcheggio'),
@@ -686,14 +691,16 @@
     async function sendForm() {
       const scriptUrl = localStorage.getItem('bs_script_url');
       if (!scriptUrl) {
-        showToast("⚙️ Configura prima l'URL in impostazioni", 'error');
+        showToast('⚙️ Configura prima l'URL in impostazioni', 'error');
         setTimeout(() => document.getElementById('configModal').classList.add('open'), 600);
         return;
       }
+
       const data = collectData();
       const btn = document.getElementById('btnSend');
       btn.disabled = true;
       btn.textContent = 'INVIO IN CORSO...';
+
       try {
         await fetch(scriptUrl, {
           method: 'POST',
@@ -701,7 +708,10 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
-        showToast('✓ Report ' + reportId + ' inviato!');
+
+        formCount++;
+        localStorage.setItem('bs_form_count', formCount);
+        showToast('✓ Report N°' + (formCount - 1) + ' inviato!');
         setTimeout(() => resetForm(), 900);
       } catch (e) {
         console.error(e);
@@ -718,15 +728,17 @@
         if (el.type === 'date') { el.valueAsDate = new Date(); }
         else { el.value = ''; }
       });
+
       document.querySelectorAll('.check-item').forEach(el => {
         el.classList.remove('checked');
         const cb = el.querySelector('input[type="checkbox"]');
         if (cb) cb.checked = false;
       });
+
       document.querySelectorAll('.yn-btn').forEach(b => b.classList.remove('active-si','active-no'));
       ynState = {};
-      reportId = makeReportId();
-      document.getElementById('formCounter').textContent = reportId;
+
+      document.getElementById('formCounter').textContent = 'N° ' + formCount;
       window.scrollTo({ top: 0, behavior: 'smooth' });
       showToast('✦ Nuovo form pronto');
     }
@@ -753,5 +765,6 @@
       });
     }
   </script>
+
 </body>
 </html>
