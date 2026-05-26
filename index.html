@@ -99,12 +99,11 @@
       -webkit-tap-highlight-color: transparent;
     }
     .belzona-logo {
-      height: 28px;
+      height: auto;
       width: auto;
       object-fit: contain;
-      max-width: 110px;
+      max-width: 40px;
     }
-
     /* CONTENT */
     .content {
       padding: 18px 14px;
@@ -462,6 +461,31 @@
       border-radius: 6px;
       cursor:pointer;
     }
+
+    /* ===== PDF CHECKBOX TICK FIX (print-only) ===== */
+    @media print {
+      /* Il convertitore HTML->PDF spesso non renderizza bene l'SVG: uso un tick testuale */
+      .check-box svg { display: none !important; }
+      .check-box::after { content: ''; display: none; }
+      .check-item.checked .check-box::after {
+        content: '✓';
+        display: block;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 900;
+        line-height: 1;
+        transform: translateY(-1px);
+      }
+    }
+
+    /* ===== PDF HEADER TWEAKS (logo right + titolo bold) ===== */
+    @media print {
+      .app-header { flex-wrap: nowrap !important; }
+      .header-right { margin-left: auto !important; justify-content: flex-end !important; }
+      .belzona-logo { max-width: 40px !important; height: auto !important; }
+      .form-counter { font-weight: 900 !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -809,6 +833,7 @@
 
 function buildPrintableHtml_(){
   const clone = document.documentElement.cloneNode(true);
+
   // ✅ PDF LOGO: forza src assoluto o (meglio) embed in base64 per evitare immagini mancanti nel PDF
   try {
     const liveLogo = document.querySelector('.belzona-logo');
@@ -822,7 +847,6 @@ function buildPrintableHtml_(){
         const ctx = ccv.getContext('2d');
         ctx.drawImage(liveLogo, 0, 0);
         const dataUrl = ccv.toDataURL('image/png');
-        // se non è "tainted" e produce un dataUrl valido
         if (dataUrl && dataUrl.startsWith('data:image/')) {
           cloneLogo.setAttribute('src', dataUrl);
         } else {
@@ -831,15 +855,12 @@ function buildPrintableHtml_(){
           cloneLogo.setAttribute('src', abs);
         }
       } else {
-        // fallback: URL assoluto
         const src = liveLogo.getAttribute('src') || liveLogo.src;
         const abs = new URL(src, window.location.href).href;
         cloneLogo.setAttribute('src', abs);
       }
     }
-  } catch(e) {
-    // noop
-  }
+  } catch(e) { /* noop */ }
 
 
   // 1) Copia valori correnti nei campi del clone (property -> attribute)
@@ -855,6 +876,10 @@ function buildPrintableHtml_(){
       if (t === 'checkbox' || t === 'radio') {
         if (el.checked) c.setAttribute('checked', 'checked');
         else c.removeAttribute('checked');
+
+        // ✅ PDF: allinea anche la classe .checked sul wrapper (.check-item) nel clone
+        const w = c.closest('.check-item');
+        if (w) w.classList.toggle('checked', !!el.checked);
       }
     } else if (tag === 'TEXTAREA') {
       c.textContent = el.value ?? '';
