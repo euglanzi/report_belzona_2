@@ -461,24 +461,6 @@
       border-radius: 6px;
       cursor:pointer;
     }
-.check-item .check-box::after { content: ''; display: none; }.check-item .check-box::after { content: '';-item.checked .check-box::after {
-  content: '✓';
-  display: block;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 900;
-  line-height: 1;
-  transform: translateY(-1px);
-}
-
-@media print {
-  .check-item.checked .check-box { background:#2a9d8f !important; border-color:#2a9d8f !important; }
-  .check-box svg { display: none !important; }
-}
-
-
-
-    
   </style>
 </head>
 <body>
@@ -824,25 +806,31 @@
 // - mette il page-break PRIMA SOLO dell'header della sezione 5 (non dell'intera card)
 // - rimuove il titolo duplicato "Allegati immagini" dentro la sezione 5 (resta solo l'header della card)
 
-
 function buildPrintableHtml_(){
-  const clone = document.documentElement.cloneNode(trueA) COPIA VALORI input/textarea/select nel clone  const clone = document.documentElement.cloneNode(true);
+  const clone = document.documentElement.cloneNode(true);
+
+  // 1) Copia valori correnti nei campi del clone (property -> attribute)
   document.querySelectorAll('input, textarea, select').forEach(el => {
-    // ... tuo codice che fa setAttribute('value'), checked, selected ecc.
-  });
+    if (!el.id) return;
+    const c = clone.querySelector('#' + el.id);
+    if (!c) return;
 
-  // (B) ✅ QUI: riallineo .checked sui wrapper check-item nel clone
-  const liveChecks = document.querySelectorAll('.check-item input[type="checkbox"]');
-  liveChecks.forEach(inp => {
-    if (!inp.id) return;
-    const cInp = clone.querySelector('#' + inp.id);
-    if (!cInp) return;
-    const cWrap = cInp.closest('.check-item');
-    if (!cWrap) return;
-    if (inp.checked) cWrap.classList.add('checked');
-    else cWrap.classList.remove('checked');
+    const tag = (c.tagName || '').toUpperCase();
+    if (tag === 'INPUT') {
+      c.setAttribute('value', el.value ?? '');
+      const t = (c.getAttribute('type') || '').toLowerCase();
+      if (t === 'checkbox' || t === 'radio') {
+        if (el.checked) c.setAttribute('checked', 'checked');
+        else c.removeAttribute('checked');
+      }
+    } else if (tag === 'TEXTAREA') {
+      c.textContent = el.value ?? '';
+    } else if (tag === 'SELECT') {
+      const idx = el.selectedIndex;
+      Array.from(c.options || []).forEach(o => o.removeAttribute('selected'));
+      if (idx >= 0 && c.options && c.options[idx]) c.options[idx].setAttribute('selected', 'selected');
+    }
   });
-
 
   // 2) Rimuove UI non stampabile
   clone.querySelectorAll('.bottom-bar, .modal-overlay, script').forEach(n => n.remove());
