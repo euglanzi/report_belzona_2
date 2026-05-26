@@ -402,6 +402,52 @@
     .modal-btn.primary { background: var(--accent); color:#fff; }
     .modal-btn.secondary { background: var(--surface2); color: var(--text-dim); border: 1px solid var(--border); }
     .divider { height:1px; background: var(--border); margin: 12px 0; }
+
+    /* --- 20260526 Mobile hardening: evita overflow orizzontale --- */
+html, body { max-width: 100%; overflow-x: hidden; }  /* evita “scorrimento laterale” */
+
+/* header più flessibile */
+.app-header { flex-wrap: wrap; }
+.header-right { flex-wrap: wrap; justify-content: flex-end; min-width: 0; }
+
+/* badge (Report N° ...) non deve mai spingere fuori logo */
+.form-counter{
+  max-width: 60vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* logo non deve mai uscire */
+.belzona-logo{
+  max-width: 110px;
+  height: auto;
+}
+
+/* bottom bar: safe-area + layout più compatto */
+.bottom-bar{
+  left: 0; right: 0;
+  max-width: none;      /* su mobile meglio full width */
+  margin: 0;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+}
+
+/* breakpoint stretto: riduco dimensioni e padding dei bottoni */
+@media (max-width: 420px){
+  .app-header{ padding: 10px 12px 8px; }
+  .brand-name{ font-size: 18px; }
+  .brand-top{ letter-spacing: 2px; }
+  .form-counter{ max-width: 70vw; font-size: 12px; }
+  .belzona-logo{ max-width: 90px; }
+
+  .bottom-bar{ padding: 10px 12px; padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+  .btn-send{ font-size: 16px; letter-spacing: 1px; padding: 12px; }
+  .btn-reset{ padding: 12px 14px; font-size: 20px; }
+}
+``
+/* 20260526 fine*/
+
+
+    
   </style>
 </head>
 <body>
