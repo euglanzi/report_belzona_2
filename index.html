@@ -932,7 +932,45 @@ function fmtMB_(bytes){
 
 function buildPrintableHtml_(){
   const clone = document.documentElement.cloneNode(true);
+// ===== PATCH STILI PDF: bollino blu + intestazione grigio chiaro (forzati inline) =====// ===== PATCH STILI PDF: bollino blu + intestazione grigio chiaro (forzati inline) =====  });
+} catch(e){}
+try {
+  const cloneHead = clone.querySelector('head');
+  if (cloneHead) {
+    const st = document.createElement('style');
+    st.textContent = `
+      /* forza resa colori in stampa/PDF */
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .section-header{ background:#f6f7f9 !important; border-radius:10px !important; padding:12px 14px !important; }
+      .section-num{ width:28px !important; height:28px !important; min-width:28px !important; border-radius:999px !important;
+        background:#0b2d5b !important; color:#fff !important; display:inline-flex !important; align-items:center !important;
+        justify-content:center !important; font-weight:800 !important; font-size:13px !important; line-height:1 !important; }
+    `;
+    cloneHead.appendChild(st);
+  }
 
+  // fallback ulteriore: inline style su ogni elemento (alcuni renderer ignorano i background via CSS)
+  clone.querySelectorAll('.section-header').forEach(el => {
+    el.style.background = '#f6f7f9';
+    el.style.borderRadius = '10px';
+    el.style.padding = '12px 14px';
+  });
+  clone.querySelectorAll('.section-num').forEach(el => {
+    el.style.background = '#0b2d5b';
+    el.style.color = '#ffffff';
+    el.style.width = '28px';
+    el.style.height = '28px';
+    el.style.minWidth = '28px';
+    el.style.borderRadius = '999px';
+    el.style.display = 'inline-flex';
+    el.style.alignItems = 'center';
+    el.style.justifyContent = 'center';
+    el.style.fontWeight = '800';
+    el.style.fontSize = '13px';
+    el.style.lineHeight = '1';
+
+
+  
   // ✅ PDF LOGO: forza src assoluto o (meglio) embed in base64 per evitare immagini mancanti nel PDF
   try {
     const liveLogo = document.querySelector('.belzona-logo');
