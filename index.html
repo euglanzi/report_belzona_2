@@ -1118,41 +1118,6 @@ if (t === 'date') {
 
     `;
   }
-// ===== FINAL PDF FORCE (ultima passata): bollino blu + header grigio =====// ===== FINAL PDF FORCE ( = '#1e3a5f';
-    n.style.color = '#fff';
-    n.style.width = '26px';
-    n.style.height = '26px';
-    n.style.borderRadius = '50%';
-    n.style.display = 'flex';
-    n.style.alignItems = 'center';
-    n.style.justifyContent = 'center';
-    n.style.flexShrink = '0';
-    n.style.fontWeight = '700';
-    n.style.webkitPrintColorAdjust = 'exact';
-    n.style.printColorAdjust = 'exact';
-  });
-
-  // (extra) metto anche la regola globale sul clone
-  const styleTag = clone.querySelector('style');
-  if (styleTag && !styleTag.textContent.includes('print-color-adjust')) {
-    styleTag.textContent += `
-      @media print {
-        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      }
-    `;
-  }
-} catch(e) {}
-``
-try {
-  // forza stampa colori anche inline
-  clone.querySelectorAll('.section-header').forEach(h => {
-    h.style.background = '#f5f6f8';
-    h.style.borderBottom = '1px solid #d9dee7';
-    h.style.webkitPrintColorAdjust = 'exact';
-    h.style.printColorAdjust = 'exact';
-  });
-
-  clone.querySelectorAll('.section-num').forEach(n => {
 
   return '<!DOCTYPE html>' + clone.outerHTML;
 }
