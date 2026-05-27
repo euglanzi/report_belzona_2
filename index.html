@@ -177,7 +177,7 @@
     }
     .field-input:focus { outline: none; border-color: var(--accent2); }
     .field-input::placeholder { color: #9aa3b2; }
-    textarea.field-input { resize: vertical; min-height: 90px; }
+    textarea.field-input { resize: vertical; min-height: 70px; }
 
     .two-col {
       display: grid;
@@ -492,6 +492,10 @@
       .form-counter { font-weight: 1100 !important; }
     }
 
+    /* ===== NOTES SMALLER (FE) ===== */
+    textarea.field-input { padding: 8px 10px; }
+    #noteRaccoltaDati { min-height: 110px; }
+
   </style>
 </head>
 <body>
@@ -639,7 +643,7 @@
         </div>
 
         <div class="field-row"><label class="field-label">Note (descrizione accessi, spazi confinati, ecc.)</label><textarea class="field-input" id="noteSez4"></textarea></div>
-        <div class="field-row"><label class="field-label">Note e raccolta dati</label><textarea class="field-input" id="noteRaccoltaDati"></textarea></div>
+        <div class="field-row"><label class="field-label">Note e raccolta dati</label><textarea class="field-input" id="noteRaccoltaDati" style="min-height:110px"></textarea></div>
       </div>
     </div>
 
@@ -738,6 +742,18 @@
     function v(id) {
       const el = document.getElementById(id);
       return (el && el.value ? el.value.trim() : '');
+    }
+
+    
+    function isValidScriptUrl_(url){
+      const u = (url||'').trim();
+      if (!u) return false;
+      // deve essere https e terminare con /exec
+      if (!/^https:\/\//i.test(u)) return false;
+      if (!/\/exec(\?|$)/i.test(u)) return false;
+      // pattern tipico Apps Script Web App
+      if (!/^https:\/\/script\.google\.com\/macros\//i.test(u)) return false;
+      return true;
     }
 
     // ======== Attachments (images) ========
@@ -897,7 +913,7 @@ function buildPrintableHtml_(){
   });
 
   // 2) Rimuove UI non stampabile
-  clone.querySelectorAll('.bottom-bar, .modal-overlay, .toast, script').forEach(n => n.remove());
+  clone.querySelectorAll('.bottom-bar, .modal-overlay, script').forEach(n => n.remove());
 
   // 3) Impaginazione (Sez 3 e 4 su pagina nuova)
   const cards = clone.querySelectorAll('.content .section-card');
@@ -911,6 +927,8 @@ function buildPrintableHtml_(){
   });
 
   // cards[0]=Sez1, cards[1]=Sez2, cards[2]=Sez3, cards[3]=Sez4, cards[4]=Sez5
+  // ✅ Sez 4 può essere molto lunga: consenti spezzatura per evitare tagli nel PDF
+  if (cards[3]) { cards[3].style.breakInside = 'auto'; cards[3].style.pageBreakInside = 'auto'; }
   if (cards[2]) { cards[2].style.breakBefore = 'page'; cards[2].style.pageBreakBefore = 'always'; }
   if (cards[3]) { cards[3].style.breakBefore = 'page'; cards[3].style.pageBreakBefore = 'always'; }
 
@@ -923,8 +941,8 @@ function buildPrintableHtml_(){
       // page-break prima SOLO dell'header della sezione 5 (evita pagina bianca fantasma)
       const hdr = previewWrap.querySelector('.section-header');
       if (hdr) {
-        hdr.style.breakBefore = 'auto';
-        hdr.style.pageBreakBefore = 'auto';
+        hdr.style.breakBefore = 'page';
+        hdr.style.pageBreakBefore = 'always';
         hdr.style.breakAfter = 'avoid';
         hdr.style.pageBreakAfter = 'avoid';
       }
@@ -963,8 +981,6 @@ function buildPrintableHtml_(){
       .app-header { position: static !important; }
       .content { max-width: none !important; }
       img { max-width: 100% !important; height: auto !important; }
-      /* hide toast in print */
-      .toast { display: none !important; }
       .section-card { box-shadow: none !important; }
 
       /* anti pagine bianche: niente break-after globali */
@@ -1109,7 +1125,15 @@ function buildPrintableHtml_(){
 
     function saveConfig() {
       const url = document.getElementById('scriptUrl').value.trim();
-      if (url) {
+      if (!url) {
+        showToast('⚙️ Inserisci l\'URL del Google Apps Script', 'error');
+        return;
+      }
+      if (!isValidScriptUrl_(url)) {
+        showToast('⚠️ URL non valido: deve essere un Web App Apps Script che termina con /exec', 'error');
+        return;
+      }
+      {
         localStorage.setItem('bs_script_url', url);
         document.getElementById('configModal').classList.remove('open');
         showToast('✓ URL salvato');
