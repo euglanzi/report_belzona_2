@@ -187,8 +187,8 @@
 @media (max-width: 520px) {
   .two-col { grid-template-columns: 1fr; }
   .belzona-logo {
-    height: 80px;        /* <-- più grande su mobile */
-    max-width: 90px;     /* <-- limita la larghezza se il logo è “lungo” */
+    height: 80px;        /* <-- piÃ¹ grande su mobile */
+    max-width: 90px;     /* <-- limita la larghezza se il logo Ã¨ âlungoâ */
     width: auto;
     margin-left: auto; 
   }
@@ -474,7 +474,7 @@
       .check-box svg { display: none !important; }
       .check-box::after { content: ''; display: none; }
       .check-item.checked .check-box::after {
-        content: '✓';
+        content: 'â';
         display: block;
         color: #fff;
         font-size: 14px;
@@ -497,7 +497,7 @@
     #noteRaccoltaDati { min-height: 70px; }
 
     /* ===== UNIFORMA FONT + SPAZIATURA (subsection / check / yn) ===== */
-    /* Rende le intestazioni tipo "Area di lavoro", "Accessibilità", "Condizioni Ambientali..." coerenti con i label standard */
+    /* Rende le intestazioni tipo "Area di lavoro", "AccessibilitÃ ", "Condizioni Ambientali..." coerenti con i label standard */
     .subsection-label {
       font-family: var(--font-body);
       font-size: 11px;
@@ -540,7 +540,7 @@
       <span class="brand-name">REPORT SOPRALLUOGO</span>
     </div>
     <div class="header-right">
-      <span class="form-counter" id="formCounter">Report N° ...</span>
+      <span class="form-counter" id="formCounter">Report NÂ° ...</span>
       <button class="settings-btn" onclick="document.getElementById('configModal').classList.add('open')" title="Impostazioni">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="3"/>
@@ -600,7 +600,7 @@
           <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkErosione"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Erosione</span></label>
           <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkCricche"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Cricche</span></label>
         </div>
-        <div class="field-row"><label class="field-label">Note (particolarità del processo, ecc.)</label><textarea class="field-input" id="noteSez2"></textarea></div>
+        <div class="field-row"><label class="field-label">Note (particolaritÃ  del processo, ecc.)</label><textarea class="field-input" id="noteSez2"></textarea></div>
       </div>
     </div>
 
@@ -610,14 +610,14 @@
       <div class="section-body">
         <span class="subsection-label">Condizioni Ambientali ed Operative nell'Area di Lavoro</span>
         <div class="yn-grid">
-          <div class="yn-item"><span class="yn-label-text">Aggressivi Chimici</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynAggressivi">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynAggressivi">NO</button></div></div>
-          <div class="yn-item"><span class="yn-label-text">Area AtEx</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynAtex">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynAtex">NO</button></div></div>
-          <div class="yn-item"><span class="yn-label-text">Polveri</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynPolveri">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynPolveri">NO</button></div></div>
-          <div class="yn-item"><span class="yn-label-text">Lavoro in Quota</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynQuota">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynQuota">NO</button></div></div>
-          <div class="yn-item"><span class="yn-label-text">Particolari DPI</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynDPI">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynDPI">NO</button></div></div>
-          <div class="yn-item"><span class="yn-label-text">Spazio Confinato</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynConfinato">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynConfinato">NO</button></div></div>
-          <div class="yn-item"><span class="yn-label-text">Limitazione 220V</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="yn220V">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="yn220V">NO</button></div></div>
-          <div class="yn-item"><span class="yn-label-text">Necessità Formazione</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynFormazione">SÌ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynFormazione">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Aggressivi Chimici</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynAggressivi">SÃ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynAggressivi">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Area AtEx</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynAtex">SÃ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynAtex">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Polveri</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynPolveri">SÃ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynPolveri">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Lavoro in Quota</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynQuota">SÃ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynQuota">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Particolari DPI</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynDPI">SÃ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynDPI">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Spazio Confinato</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynConfinato">SÃ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynConfinato">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">Limitazione 220V</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="yn220V">SÃ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="yn220V">NO</button></div></div>
+          <div class="yn-item"><span class="yn-label-text">NecessitÃ  Formazione</span><div class="yn-buttons"><button class="yn-btn" onclick="setYN(this,'si')" data-field="ynFormazione">SÃ</button><button class="yn-btn" onclick="setYN(this,'no')" data-field="ynFormazione">NO</button></div></div>
         </div>
         <div class="field-row"><label class="field-label">Note (aspetti integrativi)</label><textarea class="field-input" id="noteSez3"></textarea></div>
       </div>
@@ -641,7 +641,7 @@
           <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkSez4Riscaldata"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Riscaldata</span></label>
         </div>
 
-        <span class="subsection-label">Accessibilità</span>
+        <span class="subsection-label">AccessibilitÃ </span>
         <div class="check-grid">
           <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkSez4Scale"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Scale</span></label>
           <label class="check-item" onclick="toggleCheck(this, event)"><input type="checkbox" id="chkSez4Ascensore"><div class="check-box"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="check-label">Ascensore</span></label>
@@ -698,7 +698,7 @@
 
   <!-- BOTTOM BAR -->
   <div class="bottom-bar">
-    <button class="btn-reset" onclick="resetForm()" title="Nuovo form">＋</button>
+    <button class="btn-reset" onclick="resetForm()" title="Nuovo form">ï¼</button>
     <button class="btn-send" id="btnSend" onclick="sendForm()">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       INVIA REPORT
@@ -710,11 +710,11 @@
   <!-- MODAL CONFIG -->
   <div class="modal-overlay" id="configModal">
     <div class="modal-box">
-      <div class="modal-title">⚙️ Configurazione Invio</div>
+      <div class="modal-title">âï¸ Configurazione Invio</div>
       <div class="modal-sub">
         Inserisci l'URL del tuo <strong>Google Apps Script</strong> (Web App) per abilitare l'invio a Google Sheets.<br><br>
         1. Apri <a href="https://script.google.com" target="_blank">script.google.com</a><br>
-        2. Deploy → <em>New deployment</em> → <em>Web app</em><br>
+        2. Deploy â <em>New deployment</em> â <em>Web app</em><br>
         3. Copia l'URL che termina con <strong>/exec</strong> e incollalo qui
       </div>
       <div class="field-row">
@@ -742,7 +742,7 @@
 
     let reportId = makeReportId();
     const formCounterEl = document.getElementById('formCounter');
-    if (formCounterEl) formCounterEl.textContent = 'Report N° ' + reportId;
+    if (formCounterEl) formCounterEl.textContent = 'Report NÂ° ' + reportId;
 
     let ynState = {};
     const d = document.getElementById('data');
@@ -898,7 +898,7 @@ function fmtMB_(bytes){
   // limite numero immagini
   const files = filesAll.slice(0, MAX_IMAGES);
   if (filesAll.length > MAX_IMAGES) {
-    showToast(`⚠️ Puoi allegare al massimo ${MAX_IMAGES} immagini. Verranno prese le prime ${MAX_IMAGES}.`, 'error');
+    showToast(`â ï¸ Puoi allegare al massimo ${MAX_IMAGES} immagini. Verranno prese le prime ${MAX_IMAGES}.`, 'error');
   }
 
   let tot = 0;
@@ -908,7 +908,7 @@ function fmtMB_(bytes){
 
     if (tot + b > MAX_IMAGES_B64_BYTES) {
       const remaining = MAX_IMAGES_B64_BYTES - tot;
-      showToast(`⚠️ Limite allegati superato (max 5 MB). Immagine "${f.name}" non aggiunta. Spazio residuo: ${fmtMB_(Math.max(0, remaining))} MB`, 'error');
+      showToast(`â ï¸ Limite allegati superato (max 5 MB). Immagine "${f.name}" non aggiunta. Spazio residuo: ${fmtMB_(Math.max(0, remaining))} MB`, 'error');
       break;
     }
 
@@ -917,7 +917,7 @@ function fmtMB_(bytes){
     tot += b;
   }
 
-  // se alla fine non è rimasto nulla, azzera input
+  // se alla fine non Ã¨ rimasto nulla, azzera input
   if (attachedImages.length === 0 && imgInput) imgInput.value = '';
 });
     }
@@ -925,7 +925,7 @@ function fmtMB_(bytes){
 
     // ===================== PATCH PDF v2 (NO pagine bianche su allegati) =====================
 // Sostituisci la tua funzione buildPrintableHtml_ con questa versione.
-// Cosa fa in più:
+// Cosa fa in piÃ¹:
 // - evita pagina bianca prima/dopo l'immagine negli allegati
 // - mette il page-break PRIMA SOLO dell'header della sezione 5 (non dell'intera card)
 // - rimuove il titolo duplicato "Allegati immagini" dentro la sezione 5 (resta solo l'header della card)
@@ -933,12 +933,44 @@ function fmtMB_(bytes){
 function buildPrintableHtml_(){
   const clone = document.documentElement.cloneNode(true);
   
-  // ✅ PDF LOGO: forza src assoluto o (meglio) embed in base64 per evitare immagini mancanti nel PDF
+  // ===== PATCH PDF: forza colori intestazioni come FE (bollino blu + sfondo grigio) =====
+  try {
+    // 0) Forza il print-color-adjust (molti renderer PDF ignorano i background senza questo)
+    const cloneStyle = clone.querySelector('style');
+    if (cloneStyle && !cloneStyle.textContent.includes('print-color-adjust')) {
+      cloneStyle.textContent += `
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}
+`;
+    }
+
+    // 1) Inline style (massima compatibilità con HtmlService->PDF)
+    clone.querySelectorAll('.section-header').forEach(h => {
+      h.style.background = '#f5f6f8';
+      h.style.borderBottom = '1px solid #d9dee7';
+    });
+    clone.querySelectorAll('.section-num').forEach(n => {
+      n.style.background = '#1e3a5f';
+      n.style.color = '#ffffff';
+      n.style.width = '26px';
+      n.style.height = '26px';
+      n.style.borderRadius = '50%';
+      n.style.display = 'flex';
+      n.style.alignItems = 'center';
+      n.style.justifyContent = 'center';
+      n.style.flexShrink = '0';
+      n.style.fontWeight = '700';
+    });
+  } catch(e) { /* noop */ }
+
+  
+  // â PDF LOGO: forza src assoluto o (meglio) embed in base64 per evitare immagini mancanti nel PDF
   try {
     const liveLogo = document.querySelector('.belzona-logo');
     const cloneLogo = clone.querySelector('.belzona-logo');
     if (liveLogo && cloneLogo) {
-      // Provo prima a fare embed base64 (funziona se l'immagine è same-origin)
+      // Provo prima a fare embed base64 (funziona se l'immagine Ã¨ same-origin)
       if (liveLogo.complete && liveLogo.naturalWidth > 0) {
         const ccv = document.createElement('canvas');
         ccv.width = liveLogo.naturalWidth;
@@ -972,14 +1004,14 @@ function buildPrintableHtml_(){
     if (tag === 'INPUT') {
       c.setAttribute('value', el.value ?? '');
       const t = (c.getAttribute('type') || '').toLowerCase();
-// ✅ PDF: per i campi data, forza formato italiano GG/MM/AAAA (evita MM/GG/AAAA nel PDF)
+// â PDF: per i campi data, forza formato italiano GG/MM/AAAA (evita MM/GG/AAAA nel PDF)
 if (t === 'date') {
   const iso = (el.value || '').trim(); // tipicamente YYYY-MM-DD
   const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (m) {
     const it = `${m[3]}/${m[2]}/${m[1]}`;
     c.setAttribute('value', it);
-    // nel clone trasformo il controllo in semplice testo così il renderer non riformatta
+    // nel clone trasformo il controllo in semplice testo cosÃ¬ il renderer non riformatta
     c.setAttribute('type', 'text');
     c.style.webkitAppearance = 'none';
     c.style.appearance = 'none';
@@ -989,7 +1021,7 @@ if (t === 'date') {
         if (el.checked) c.setAttribute('checked', 'checked');
         else c.removeAttribute('checked');
 
-        // ✅ PDF: allinea anche la classe .checked sul wrapper (.check-item) nel clone
+        // â PDF: allinea anche la classe .checked sul wrapper (.check-item) nel clone
         const w = c.closest('.check-item');
         if (w) w.classList.toggle('checked', !!el.checked);
       }
@@ -1017,7 +1049,7 @@ if (t === 'date') {
   });
 
   // cards[0]=Sez1, cards[1]=Sez2, cards[2]=Sez3, cards[3]=Sez4, cards[4]=Sez5
-  // ✅ Sez 4 può essere molto lunga: consenti spezzatura per evitare tagli nel PDF
+  // â Sez 4 puÃ² essere molto lunga: consenti spezzatura per evitare tagli nel PDF
   if (cards[3]) { cards[3].style.breakInside = 'auto'; cards[3].style.pageBreakInside = 'auto'; }
   if (cards[2]) { cards[2].style.breakBefore = 'page'; cards[2].style.pageBreakBefore = 'always'; }
   if (cards[3]) { cards[3].style.breakBefore = 'page'; cards[3].style.pageBreakBefore = 'always'; }
@@ -1081,10 +1113,6 @@ if (t === 'date') {
       #attachmentsSection .section-body { break-before: avoid !important; page-break-before: avoid !important; }
       #attachmentsSection .img-wrap { break-inside: avoid !important; page-break-inside: avoid !important; }
       #attachmentsSection .img-wrap:last-child { break-after: auto !important; page-break-after: auto !important; }
-      /* === FE parity (PDF): intestazioni grigie + bollino blu === */
-      .section-header { background: #f5f6f8 !important; border-bottom: 1px solid #d9dee7 !important; }
-      .section-num { background: #1e3a5f !important; color: #fff !important; }
-
     `;
   }
 
@@ -1115,10 +1143,10 @@ if (t === 'date') {
         ciclature_termiche: v('ciclatureTermiche'),
         tempi_rientro: v('tempiRientro'),
 
-        problema_corrosione: document.getElementById('chkCorrosione').checked ? 'SÌ' : 'NO',
-        problema_vaiolature: document.getElementById('chkVaiolature').checked ? 'SÌ' : 'NO',
-        problema_erosione: document.getElementById('chkErosione').checked ? 'SÌ' : 'NO',
-        problema_cricche: document.getElementById('chkCricche').checked ? 'SÌ' : 'NO',
+        problema_corrosione: document.getElementById('chkCorrosione').checked ? 'SÃ' : 'NO',
+        problema_vaiolature: document.getElementById('chkVaiolature').checked ? 'SÃ' : 'NO',
+        problema_erosione: document.getElementById('chkErosione').checked ? 'SÃ' : 'NO',
+        problema_cricche: document.getElementById('chkCricche').checked ? 'SÃ' : 'NO',
         note_sez2: v('noteSez2'),
 
         sic_aggressivi: ynState['ynAggressivi'] || '',
@@ -1135,25 +1163,25 @@ if (t === 'date') {
         sez4_movimentazione: v('sez4Movimentazione'),
         sez4_distanza_parcheggio: v('sez4DistanzaParcheggio'),
 
-        sez4_area_aperto: document.getElementById('chkSez4Aperto').checked ? 'SÌ' : 'NO',
-        sez4_area_chiuso: document.getElementById('chkSez4Chiuso').checked ? 'SÌ' : 'NO',
-        sez4_area_riscaldata: document.getElementById('chkSez4Riscaldata').checked ? 'SÌ' : 'NO',
+        sez4_area_aperto: document.getElementById('chkSez4Aperto').checked ? 'SÃ' : 'NO',
+        sez4_area_chiuso: document.getElementById('chkSez4Chiuso').checked ? 'SÃ' : 'NO',
+        sez4_area_riscaldata: document.getElementById('chkSez4Riscaldata').checked ? 'SÃ' : 'NO',
 
-        sez4_scale: document.getElementById('chkSez4Scale').checked ? 'SÌ' : 'NO',
-        sez4_ascensore: document.getElementById('chkSez4Ascensore').checked ? 'SÌ' : 'NO',
+        sez4_scale: document.getElementById('chkSez4Scale').checked ? 'SÃ' : 'NO',
+        sez4_ascensore: document.getElementById('chkSez4Ascensore').checked ? 'SÃ' : 'NO',
 
         sez4_passi_uomo_diam: v('sez4PassiUomoDiam'),
         sez4_illuminazione: v('sez4Illuminazione'),
 
-        sez4_corpo: document.getElementById('chkSez4Corpo').checked ? 'SÌ' : 'NO',
-        sez4_braccio: document.getElementById('chkSez4Braccio').checked ? 'SÌ' : 'NO',
-        sez4_mano: document.getElementById('chkSez4Mano').checked ? 'SÌ' : 'NO',
+        sez4_corpo: document.getElementById('chkSez4Corpo').checked ? 'SÃ' : 'NO',
+        sez4_braccio: document.getElementById('chkSez4Braccio').checked ? 'SÃ' : 'NO',
+        sez4_mano: document.getElementById('chkSez4Mano').checked ? 'SÃ' : 'NO',
 
         sez4_ventilazione: v('sez4Ventilazione'),
         note_sez4: v('noteSez4'),
         note_raccolta_dati: v('noteRaccoltaDati'),
 
-        // ✅ chiave per far scattare la generazione PDF nel GAS
+        // â chiave per far scattare la generazione PDF nel GAS
         html_snapshot: buildPrintableHtml_(),
         images: attachedImages
       };
@@ -1163,7 +1191,7 @@ if (t === 'date') {
     async function sendForm() {
       const scriptUrl = localStorage.getItem('bs_script_url');
       if (!scriptUrl) {
-        showToast("⚙️ Configura prima l'URL in impostazioni", 'error');
+        showToast("âï¸ Configura prima l'URL in impostazioni", 'error');
         setTimeout(() => document.getElementById('configModal').classList.add('open'), 600);
         return;
       }
@@ -1179,7 +1207,7 @@ if (t === 'date') {
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(data)
         });
-        showToast('✓ Report ' + reportId + ' inviato!');
+        showToast('â Report ' + reportId + ' inviato!');
         setTimeout(() => resetForm(), 900);
       } catch (e) {
         console.error(e);
@@ -1210,27 +1238,27 @@ if (t === 'date') {
       if (imgInput) imgInput.value = '';
 
       reportId = makeReportId();
-      if (formCounterEl) formCounterEl.textContent = 'Report N° ' + reportId;
+      if (formCounterEl) formCounterEl.textContent = 'Report NÂ° ' + reportId;
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      showToast('✦ Nuovo form pronto');
+      showToast('â¦ Nuovo form pronto');
     }
     window.resetForm = resetForm;
 
     function saveConfig() {
       const url = document.getElementById('scriptUrl').value.trim();
       if (!url) {
-        showToast('⚙️ Inserisci l\'URL del Google Apps Script', 'error');
+        showToast('âï¸ Inserisci l\'URL del Google Apps Script', 'error');
         return;
       }
       if (!isValidScriptUrl_(url)) {
-        showToast('⚠️ URL non valido: deve essere un Web App Apps Script che termina con /exec', 'error');
+        showToast('â ï¸ URL non valido: deve essere un Web App Apps Script che termina con /exec', 'error');
         return;
       }
       {
         localStorage.setItem('bs_script_url', url);
         document.getElementById('configModal').classList.remove('open');
-        showToast('✓ URL salvato');
+        showToast('â URL salvato');
       }
     }
     window.saveConfig = saveConfig;
