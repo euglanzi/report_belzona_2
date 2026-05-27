@@ -902,12 +902,24 @@ function buildPrintableHtml_(){
   // 3) Impaginazione (Sez 3 e 4 su pagina nuova)
   const cards = clone.querySelectorAll('.content .section-card');
   cards.forEach(card => {
-    card.style.breakInside = 'avoid';
-    card.style.pageBreakInside = 'avoid';
+    const isAttach = (card.id === 'attachmentsSection');
+
+    // Per evitare pagine bianche: NON usare break-inside:avoid sull'intera sezione allegati
+    if (isAttach) {
+      card.style.breakInside = 'auto';
+      card.style.pageBreakInside = 'auto';
+    } else {
+      card.style.breakInside = 'avoid';
+      card.style.pageBreakInside = 'avoid';
+    }
+
     card.style.overflow = 'visible';
     // IMPORTANT: nessun break-after forzato
     card.style.breakAfter = 'auto';
     card.style.pageBreakAfter = 'auto';
+    // IMPORTANT: nessun break-before forzato sulla card (lo gestiamo sull'header allegati)
+    card.style.breakBefore = 'auto';
+    card.style.pageBreakBefore = 'auto';
   });
 
   // cards[0]=Sez1, cards[1]=Sez2, cards[2]=Sez3, cards[3]=Sez4, cards[4]=Sez5
@@ -969,6 +981,7 @@ function buildPrintableHtml_(){
       .section-card, .section-header, .section-body { break-after: auto !important; page-break-after: auto !important; }
 
       /* anti orfani: header allegati non deve restare da solo */
+      #attachmentsSection { break-inside: auto !important; page-break-inside: auto !important; }
       #attachmentsSection .section-header { break-after: avoid !important; page-break-after: avoid !important; }
       #attachmentsSection .section-body { break-before: avoid !important; page-break-before: avoid !important; }
       #attachmentsSection .img-wrap { break-inside: avoid !important; page-break-inside: avoid !important; }
