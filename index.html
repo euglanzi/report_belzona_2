@@ -929,6 +929,19 @@ function buildPrintableHtml_(){
     if (tag === 'INPUT') {
       c.setAttribute('value', el.value ?? '');
       const t = (c.getAttribute('type') || '').toLowerCase();
+// ✅ PDF: per i campi data, forza formato italiano GG/MM/AAAA (evita MM/GG/AAAA nel PDF)
+if (t === 'date') {
+  const iso = (el.value || '').trim(); // tipicamente YYYY-MM-DD
+  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (m) {
+    const it = `${m[3]}/${m[2]}/${m[1]}`;
+    c.setAttribute('value', it);
+    // nel clone trasformo il controllo in semplice testo così il renderer non riformatta
+    c.setAttribute('type', 'text');
+    c.style.webkitAppearance = 'none';
+    c.style.appearance = 'none';
+  }
+}    
       if (t === 'checkbox' || t === 'radio') {
         if (el.checked) c.setAttribute('checked', 'checked');
         else c.removeAttribute('checked');
