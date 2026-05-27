@@ -932,6 +932,37 @@ function fmtMB_(bytes){
 
 function buildPrintableHtml_(){
   const clone = document.documentElement.cloneNode(true);
+ // ===== PATCH PDF: forza colori intestazioni come FE (bollino blu + sfondo grigio) =====
+try {
+  // Forza la stampa dei colori (molti renderer HTML->PDF ignorano i background senza questo)
+  const styleTag = clone.querySelector('style');
+  if (styleTag) {
+    styleTag.textContent += `
+      @media print {
+        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      }
+    `;
+  }
+
+  // Inline style: massima compatibilità con HtmlService->PDF
+  clone.querySelectorAll('.section-header').forEach(h => {
+    h.style.background = '#f5f6f8';        // grigino intestazione
+    h.style.borderBottom = '1px solid #d9dee7';
+  });
+
+  clone.querySelectorAll('.section-num').forEach(n => {
+    n.style.background = '#1e3a5f';        // blu scuro bollino
+    n.style.color = '#ffffff';
+    n.style.width = '26px';
+    n.style.height = '26px';
+    n.style.borderRadius = '50%';
+    n.style.display = 'flex';
+    n.style.alignItems = 'center';
+    n.style.justifyContent = 'center';
+    n.style.flexShrink = '0';
+    n.style.fontWeight = '700';
+  });
+} catch(e) { /* noop */ }
   
   // ✅ PDF LOGO: forza src assoluto o (meglio) embed in base64 per evitare immagini mancanti nel PDF
   try {
