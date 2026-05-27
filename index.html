@@ -184,9 +184,13 @@
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
-    @media (max-width: 520px) {
-      .two-col { grid-template-columns: 1fr; }
-      .belzona-logo { height: 50px; }
+@media (max-width: 520px) {
+  .belzona-logo {
+    height: 40px;        /* <-- più grande su mobile */
+    max-width: 80px;     /* <-- limita la larghezza se il logo è “lungo” */
+    width: auto;
+  }
+}
     }
 
     .subsection-label {
