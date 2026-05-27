@@ -496,19 +496,39 @@
     textarea.field-input { padding: 8px 10px; }
     #noteRaccoltaDati { min-height: 70px; }
 
-    /* ===== SEZ 4: uniforma font + spaziatura (Area di lavoro / Accessibilità) ===== */
-    .content .section-card:nth-of-type(4) .subsection-label {
+    /* ===== UNIFORMA FONT + SPAZIATURA (subsection / check / yn) ===== */
+    /* Rende le intestazioni tipo "Area di lavoro", "Accessibilità", "Condizioni Ambientali..." coerenti con i label standard */
+    .subsection-label {
       font-family: var(--font-body);
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--text-dim);
-      margin: 16px 0 14px; /* + spazio sotto la label */
+      margin: 16px 0 12px;
+      display: block;
     }
 
-    /* mini spazio extra tra label e griglia opzioni */
-    .content .section-card:nth-of-type(4) .check-grid { margin-top: 4px; }
+    /* Spazio extra tra la label di sottosezione e le griglie di opzioni */
+    .subsection-label + .check-grid,
+    .subsection-label + .yn-grid {
+      margin-top: 6px;
+    }
+
+    /* Uniforma il testo label dentro i box SI/NO */
+    .yn-label-text {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 8px 12px 4px;
+      display: block;
+    }
+
+    /* Un filo di respiro sopra i pulsanti SI/NO */
+    .yn-buttons { margin-top: 2px; }
 
   </style>
 </head>
